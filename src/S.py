@@ -25,11 +25,11 @@ sock.settimeout(0.2)
 ttl = struct.pack('b', 1)
 sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_TTL, ttl)
 
-# threading.Thread(target=lambda:eel.start('S.html', size=(500, 500),port=0)).start()
 @eel.expose
 def send(message):
 	print(message)
 	sock.sendto(str(message).encode('utf-8'), group)
+	eel.writeMsg(0,f"{message}, MULTICAST to {group[0]}:{str(group[1])}")
 
 eel.start('S.html', size=(500, 500),port=0)
 # sock.close()

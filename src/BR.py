@@ -34,12 +34,14 @@ TCPSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 TCPSocket.bind((TCP_IP, TCP_PORT))
 TCPSocket.listen(backlog)
 client, (rip, rport) = TCPSocket.accept()
+eel.writeMsg(2,f"connect from {rip}:{str(rport)}")
 
 recvSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 recvSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 recvSocket.bind(('', PORT))
 
 joinGroup(recvSocket, MULTICAST_GROUP1)
+eel.writeMsg(2,f"join multicast group {MULTICAST_GROUP1}:{str(PORT)}")
 print('Listening on multicast group (%s, %d)' % (MULTICAST_GROUP1, PORT))
 
 threading.Thread(target=lambda:eel.start('BR.html', size=(500, 500),port=0)).start()

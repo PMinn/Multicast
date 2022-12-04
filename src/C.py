@@ -34,6 +34,7 @@ recvSocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 recvSocket.bind(('', PORT))
 
 joinGroup(recvSocket, MULTICAST_GROUP2)
+eel.writeMsg(2,f"join multicast group {MULTICAST_GROUP2}:{str(PORT)}")
 print('Listening on multicast group (%s, %d)' % (MULTICAST_GROUP2, PORT))
 
 threading.Thread(target=lambda:eel.start('C.html', size=(500, 500),port=0)).start()
